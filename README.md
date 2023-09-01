@@ -1,2 +1,1 @@
-# Kubernetes
-Kubernetes - Container orchestration
+Kubernetes is a container orchestrations tool , which eliminates manual process involved in deploying and scaling the containerized application.
