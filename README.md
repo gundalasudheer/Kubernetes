@@ -96,7 +96,3 @@ Container Runtime:
 1. Container runtime is a software component that required to run the containers.
 2. Container runtime is responsible for pulling the images from contaier registry, running containers, allocating and isolating resources for the containers. Also manages the lifecycle of the containers.
 3. Container runtime runs on all the nodes.
-=======
-
-![Alt text](image-2.png)
->>>>>>> fbcd7e5d3b7bc887eb7eb97817e975f5919c2695
