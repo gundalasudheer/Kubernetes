@@ -14,12 +14,28 @@ Kube - API server:
 5. It is the only component which talk to ETCD.
 
 ETCD:
-1. It is a brain of the Kubernetes Cluster.
-2. It is a nonrelational distributed database which stores the data in key-value format.
-3. It stores all the configurations, state and meta data of the kubernetes objects.
+1. It is the brain of the Kubernetes Cluster.
+2. It is a nonrelational distributed database which stores the data in key-value format. It is simple , secure and fast.
+3. It stores all the configurations, state and meta data of the kubernetes objects. Every info you see when you use kubectl get is from etcd.
+
+Every change you make to the cluster is recorded in the the etcd server. only once it is updated in the etcd server the changes is considered as complete. 
 4. ETCD stores all the objects under /registry directory in key-value format.
+ex: /registry/*
+             /registry/pods/*
+             /registry/namespaces/*
+             /registry/daemonsets/*
+             /registry/events/*   .... etc
+
 5. ETCD allows user to subscribe events using WATCH() API.
-5. When user requests the kubernets object details,you will get it from ETCD. Also, when you deploy, delete and modify an object an entry will be created in ETCD.
+6. When user requests the kubernets object details,you will get it from ETCD. Also, when you deploy, delete and modify an object an entry will be created in ETCD.
+7. To install the ETCD. a. Download the binaries from the github. b. extract and c. Run the etcd services.
+8. By default it runs/listens on the port 2379. we can attach any clients to etcd to store and retrive any information.
+9. The default client comes with etcd is etcd control client.
+10. we can use ./etcdctl set(for v2)/put(for v3) key1 value1 to store the value into etcd.
+11. ./etcdctl get key1 to get the details of key1.
+12. for any help we can use ./etcdctl
+13. ./etcdctl -- version
+
 
 Kube Scheduler:
 1. It is responsible for scheduling the pods on worker nodes.
@@ -37,6 +53,14 @@ Kube Controller Manager:
 1. Controller is a program which runs continously and watchs the actual and desired state.
 2. It always ensure the actual state matchs to the desired state.
 3. Kube controller manager manages all the controllers in the kubernetes cluster.i.e kube scheduler, kubelet etc.
+4. we have many controllers in the cluster. examples are a. node controller and b. replication controller as well
+   a. node controller:
+     this will monitor the nodes for every 5s through kube-apiserver.
+     it will wait 40s to mark that node as unreachable and also waits for 5min for the node to comeback.
+     if the node is still non responsive then the pods running on the node will be moved to other nodes if the pods are part of replicas.
+
+   b. replication controller:
+    This will monitor the replicasets and always matchs the actual state to desired state.  
 
 Cloud Controller Manager:
 1. Cloud controller manager acts as a bridge between the cloud platform APIs and the kubernetes cluster.

@@ -1,0 +1,21 @@
+apiVersion: apps/v1 # for replication controller the apiversion is v1
+kind: ReplicaSet
+metadata:
+  name: rs-webapp
+  labels:
+    app: front-end
+spec:
+  template:
+    metadata:
+      name: web-app
+      labels:
+        app: front-end
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 3
+  selector:    # it is a required field in the replicaset but for replicationcotroller it is an optional one.
+    matchLabels:
+      app: front-end
+    
