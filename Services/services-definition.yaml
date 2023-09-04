@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeport-service
+spec:
+  type: NodePort # we need to specify what kind of service we are using.
+  ports:
+    - port: 80 # it is a mandatory field.
+      targetPort: 80 # it is optional. If we are not specifying the targetport it will consider same as a port.
+      nodePort: 30008 # it is also optional. If we are not specifying then it will consider the free port between 30000 - 32767
+  selector:
+    app: myapp # It is the label of the pod.

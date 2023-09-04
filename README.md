@@ -18,7 +18,7 @@ ETCD:
 2. It is a nonrelational distributed database which stores the data in key-value format. It is simple , secure and fast.
 3. It stores all the configurations, state and meta data of the kubernetes objects. Every info you see when you use kubectl get is from etcd.
 
-Every change you make to the cluster is recorded in the the etcd server. only once it is updated in the etcd server the changes is considered as complete. 
+Every change you make to the cluster is recorded in the etcd server. Once it is updated in the etcd server, then only the change is considered as complete. 
 4. ETCD stores all the objects under /registry directory in key-value format.
 ex: /registry/*
              /registry/pods/*

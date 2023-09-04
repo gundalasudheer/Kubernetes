@@ -1,0 +1,3 @@
+replicas
+selector:
+  matchLables:

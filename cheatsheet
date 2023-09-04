@@ -44,4 +44,6 @@
      It will undo the update to the given deployment.            
  22. kubectl create -f deployment.yaml --record
      This command will record the change of cause. you can check this using the kubectl rollout history command.
-     
+ 23. kubectl create deployment <deploymentname> --image=<imagename> --replicas=<numberofreplicas> --dry-run=client -o yaml > <requireddeploymentfiletosave.yaml>   
+ 24. kubectl get services
+     This will display the service created.
