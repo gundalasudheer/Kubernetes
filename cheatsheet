@@ -47,3 +47,26 @@
  23. kubectl create deployment <deploymentname> --image=<imagename> --replicas=<numberofreplicas> --dry-run=client -o yaml > <requireddeploymentfiletosave.yaml>   
  24. kubectl get services
      This will display the service created.
+ 25. minikube service <servicename> --url
+     If we are using the minikube we can use this command to get the url(ipaddress:port) of the service specified.    
+ 26. kubectl get pods --namespace=kube-system
+      This command will display all pods in the kube-system namespace.
+ 27. kubectl create -f <definitionfile.yaml> --namespace=<name of the namesapce>
+      This command is used to create the object in specified namespace. if namespace is not specified than the object is created in default namespace.
+ 28. kubectl create namespace <name of the namespace>
+     This command will create the namespace with the given name.
+ 29. kubectl config set-contect $(kubectl config current-context) --namespace=<name of the namespace>
+      This command is used to set the namespace to provided name. so that we can access the resources from that namespace.
+ 30. kubectl get pods --all-namespace
+       This will list all the pods from all the namespaces
+ 31. kubectl replace -f <definition.yaml>
+     This will replace the object according to the defiition file.
+ 32. kubectl replace --force -f <definition.yaml>
+     This command will forcefully recreate the object.
+ 33. kubectl apply -f <definition.yaml>
+    This command is a declarative way. This apply command is intelligent enough that it will create the object if the object is not there. If object is there it wont create and it wont through any error as well.
+    If we do any changes to the definition file then this command will help in applying those changes to the object.
+ 34. kubectl apply -f <path of the folder>
+      This command will read all the files from the given location and execute.
+ 35. kubectl expose deployment nginx --port=80
+ 36. kubectl set image deployment nginx nginx=nginx:1.2
