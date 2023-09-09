@@ -4,7 +4,7 @@
     This command will create the pod with given name and image.
  2. kubectl create -f <file.yaml>
     This will create the object from the yaml file we provided.
- 3. kubectl run <podname> --image-<imagename> --dry-run=client -o yaml > <file.yaml>
+ 3. kubectl run <podname> --image=<imagename> --dry-run=client -o yaml > <file.yaml>
     By using this command we can generate the yaml file(file.yaml) for the pod using the provided image.    
  4. kubectl get pods
     This command will display all the pods running.
@@ -60,9 +60,9 @@
  30. kubectl get pods --all-namespace
        This will list all the pods from all the namespaces
  31. kubectl replace -f <definition.yaml>
-     This will replace the object according to the defiition file.
+     This will replace the object according to the definition file.
  32. kubectl replace --force -f <definition.yaml>
-     This command will forcefully recreate the object.
+     This command will forcefully recreate the object. i.e it will deleted the object and create.
  33. kubectl apply -f <definition.yaml>
     This command is a declarative way. This apply command is intelligent enough that it will create the object if the object is not there. If object is there it wont create and it wont through any error as well.
     If we do any changes to the definition file then this command will help in applying those changes to the object.
@@ -70,3 +70,9 @@
       This command will read all the files from the given location and execute.
  35. kubectl expose deployment nginx --port=80
  36. kubectl set image deployment nginx nginx=nginx:1.2
+ 37. kubectl get pods <podname> --watch
+      This command will watch the pod and notify the status if anything gets change.
+ 38. kubectl get pods --selector env=dev
+      buy using the selector we can filter out the output by using the labels as per our requirement. 
+ 39. kubectl get pods --selector env=prod,bu=finance,tier=frontend
+        This command will display the pods which are matching all the three labels .i.e prod,finance,frontend

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node1-pod
+  labels:
+    app: myapp
+spec:
+  nodeName: node01  # This pod will be scheduled on node01. If we wont specify then it will schedule in default node.
+  containers:
+        - name: nginx
+          image: nginx

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodeaffinity-pod
+  labels:
+    app: web-app
+spec:
+  containers:
+    - name: httpd-frontend
+      image: httpd
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: size
+              operator: In ## Here if we use exists operator then it will just check if the node is labelled or not. Exists dont have values. So,we no need to specify them.
+              values:
+              - Large
+              - Medium

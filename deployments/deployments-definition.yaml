@@ -9,7 +9,7 @@ spec:
        tire: frontend
    spec:
      containers:
-       - name: httpd
+       - name: httpd-frontend
          image: httpd:2.4-alpine
  selector:
    matchLabels:
