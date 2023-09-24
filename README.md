@@ -8,9 +8,13 @@ Kubernetes Architecture:
 Kube - API server:
 
 1.It is a central hub of the cluster that exposes kubernetes api.
+
 2.End users and other cluster components talk to cluster via kube api server.
+
 3.Internal cluster components like scheduler,controller talk to API server using gRPC via TLS to prevent unauthorised access to the cluster.
+
 4. End users and outside components talk to kube api server using HTTP REST apis.
+
 5. It is the only component which talk to ETCD.
 
 ETCD:
