@@ -23,15 +23,21 @@ ETCD:
 3. It stores all the configurations, state and meta data of the kubernetes objects. Every info you see when you use kubectl get is from etcd.
 
 Every change you make to the cluster is recorded in the etcd server. Once it is updated in the etcd server, then only the change is considered as complete. 
+
 4. ETCD stores all the objects under /registry directory in key-value format.
+
 ex: /registry/*
-             /registry/pods/*
-             /registry/namespaces/*
-             /registry/daemonsets/*
-             /registry/events/*   .... etc
+
+    /registry/pods/*
+
+    /registry/namespaces/*
+
+    /registry/daemonsets/*
+
+    /registry/events/*   .... etc
 
 5. ETCD allows user to subscribe events using WATCH() API.
-6. When user requests the kubernets object details,you will get it from ETCD. Also, when you deploy, delete and modify an object an entry will be created in ETCD.
+6. When user requests the kubernets object details,you will get it from ETCD. Also, when you deploy, delete and modify an object , an entry will be created in ETCD.
 7. To install the ETCD. a. Download the binaries from the github. b. extract and c. Run the etcd services.
 8. By default it runs/listens on the port 2379. we can attach any clients to etcd to store and retrive any information.
 9. The default client comes with etcd is etcd control client.
