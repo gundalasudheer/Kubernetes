@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podresourcerequest
+  labels:
+    tier: front-end
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 8080 # the port section is used to define/expose the container.
+      resources:
+        requests:
+          memory: "1Gi"
+          cpu: 1
