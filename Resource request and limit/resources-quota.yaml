@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: ResourceQuota
+metadata:
+  name: resourcequotafornamespace
+spec:
+  hard:
+    requests.cpu: 4
+    requests.memory: 500G
+    limits.cpu: 8
+    limits.memory: 500Gi
+    
