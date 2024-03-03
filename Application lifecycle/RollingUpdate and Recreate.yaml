@@ -1,0 +1,29 @@
+# Rolling update and Recreate are the strategies we use for upgrading the aplication. So we will be mentioning these strategies in the deployment file.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  labels:
+    type: frontend
+spec:
+  template:
+    metadata:
+      name: web-app
+      labels:
+        type: frontend
+    spec:
+      - name: webapp
+        image: nginx
+  selector:
+    matchLabels:
+      type: frontend
+  replicas: 4
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+    maxSurge: 25%
+    maxUnavailable: 25%
+
+  # for recreate strategy
+  # strategy:
+    #  type: Recreate
