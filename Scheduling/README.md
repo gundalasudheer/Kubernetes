@@ -19,7 +19,7 @@ If pods are running on the node and the taint is applied with NoExecution then t
    kubectl taint node <node-name> key=value:<taint-effect>-
     we need to use the - at the last of command to untaint.
 For untainting the master node
-   kubectl taint node master node-role.kubernetes.io/master:NoSchedule
+   kubectl taint node master node-role.kubernetes.io/master:NoSchedule-
 
 
 Node Selector:-

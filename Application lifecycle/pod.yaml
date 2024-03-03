@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+meatadata:
+  name: commands-arguments
+spec:
+ containers:
+   - name: commands-arguments
+     image: nginx
+     command: ["sleep"]
+     args: ["10"]

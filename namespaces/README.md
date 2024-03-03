@@ -19,3 +19,12 @@ To connect/use resources in other namespaces you use the DNS in the below format
            svc is subdomain for service.
    
     example: mysql.connect("db-service.dev.svc.cluster.local")
+
+To set the context of the namespace then we can use the belwo command
+  kubectl config set-context $(kubectl config current-context) --namespace=<nameofthenamespace>
+
+To view the objects from all the namespaces
+   kubectl get pods --all-namespaces
+To view the objects from a specified namespace
+   kubectl get pods --namespace=dev
+   

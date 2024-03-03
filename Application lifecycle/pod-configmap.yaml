@@ -12,3 +12,8 @@ spec:
             configMapKeyRef:
               name: <configmapname>
               key: APP_COLOR
+
+# we can also use envFrom instead of env
+# -envFrom:
+ #   - configMapRef:
+ #       - name: <configmapname>

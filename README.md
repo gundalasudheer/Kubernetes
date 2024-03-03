@@ -16,6 +16,10 @@ Kube - API server:
 4. End users and outside components talk to kube api server using HTTP REST apis.
 
 5. It is the only component which talk to ETCD.
+6. If we setup the cluster hardway  we need to configure the kube-apiserver.service for connecting and communicating with the other components.
+   Here we use the parameter --etcd-servers to specify the etcd details.
+    /etc/systemd/system/kube-apiserver.service -- location of kube-apiserver.service file for non kubeadm setup.
+7. If we setup the cluster using kubeadm then the kube-apiserver is deployed as pod in kube-system namespace. You can find the kube-apiserver pod yaml file under /etc/kubernetes/manifests/ location.
 
 ETCD:
 1. It is the brain of the Kubernetes Cluster.
@@ -43,8 +47,16 @@ ex: /registry/*
 9. The default client comes with etcd is etcd control client.
 10. we can use ./etcdctl set(for v2)/put(for v3) key1 value1 to store the value into etcd.
 11. ./etcdctl get key1 to get the details of key1.
-12. for any help we can use ./etcdctl
-13. ./etcdctl -- version
+12. for any help we can use ./etcdctl --- this will display all the options which will support that particular api version of the etcd.
+13. ./etcdctl -- version  --- this command will list both the etcd and api versions.
+14. To set the API version for ETCD we can use below commands.
+    ETCDCTL_API=3 ./etcdctl version --- this will set the api version for that particular command only.
+    export ETCDCTL_API=3
+      ./etcdctl version --- by doing the export we set env varaible for the api. so it will be applicable for the entire session.
+15. If we setup the cluster hardway then we need to download the binaryfiles of the ETCD and run it as service. You can get/set the required details from/in etcd.service files. Advertise-client-url is where the etcd listens. This is the url you need to configure in kubeapi server to reach to etcd.
+16. In high availability env we hve multiple nodes of masters in the cluster where we have multiple ETCDs running. So to know abt each other we need to set the initial-cluster parameter of each instance.
+  ex: --initial-cluster controller-0=https://${controller0-ip}:2380,controller-1=https://${controller1-ip}:2380 
+17. If we deploy the cluster using the kubeadm then it will deploy the components of the cluster as pods in the kube-system namespace. These pod definition files are stored under /etc/kubernets/manifests/ location.
 
 
 Kube Scheduler:
@@ -52,7 +64,7 @@ Kube Scheduler:
 2. The scheduler has two phases:
       a. Scheduling cycle:
             In this cycle it will identify the worker node for Scheduling the Pod.
-            For identify the node it uses Filtering and Scoring method.
+            For identify the node it uses Filtering and Scoring method(Here it uses the priority fucntion to score the nodes).
       b. Binding cycle:
             In binding cycle the changes are applied to the cluster.
 
@@ -72,6 +84,13 @@ Kube Controller Manager:
    b. replication controller:
     This will monitor the replicasets and always matchs the actual state to desired state.  
 
+5. If you setup the cluster hardway then you need to download the binaries and extract it and run it as a service.
+   In the kube-controller-manager.service file we will specify what are the controllers need to be enabled (by default all the controllers are enabled) under the --controllers parameter. Also we can specify the details like --node-monitor-period , --node-moitor-grace-period , --pod-eviction-timeout etc here.
+   /etc/systemd/system/kube-controller-manager.service is where the nonkubeadm setups will store the service file.
+6. If we set up the cluster using the kubeadm then the Kube-controller-manager is deployed as a pod.
+   we can see the details of the pod under /etc/kubernetes/manifests/ location.
+
+
 Cloud Controller Manager:
 1. Cloud controller manager acts as a bridge between the cloud platform APIs and the kubernetes cluster.
 2. It allows kubernets cluster to provision cloud resources like load balancers, storage volumes, instances, IAM etc.
@@ -90,10 +109,16 @@ Kubelet:
 3. It primarily gets the PodSpec file from the API server which defines the container that should run inside the pod and the resource details etc.
 4. Other than PodSpec from API server the kubelet will get the PodSpecs from file, Http endpoint and Http servers as well.
 5. Good example of PodSpecs from file are kubernetes static pods. While bootstrapping the control plane , kubelet start the API-server,Kube Scheduler and controller manager as static pods from the PodSpecs located at /etc/kubernetes/manifests.
+  If you want to set the custom path other than the /etc/kubernetes/manifests .. then we need to specify those pod location under the --pod-manifest-path field in the kubelet.service file. or instead of the configuring the location directly in the kubelet.service file just config the config yaml file in which the static pod location will be present.
+    i.e --config=kubeconfig.yaml
+      in the kubeconfig.yaml we will give the static pods location. i.e staticPodPath: /etc/kubernetes/manifests. Kubeadm will use this kind of approch while settingup the cluster.
 6. These static pods are controlled by Kubelet, not by API server.
 7. Kubelet uses CRI(container runtime interface) gRPC interface to talk to the container runtime.
 8. Kubelet uses CNI(container network interface) plugin configured in the cluster to allocate the IP address and setup any necessary network routes and fairewall rules for the Pod.
 9. kubelet gets all the information about the containers from the container runtime and provides it to the control plane.
+10. If we use kubeadm tool to setup the cluster it wont deploy the kubelet. WE MUST ALWAYS INSTALL KUBELET MANUALLY ON THE WORKER NODES. 
+ So download the binaries ,extract it and run it as the service (kubelet.service).
+ 
 
 Kube-Proxy:
 1. Kube proxy is a daemon that runs on every node as daemonset.

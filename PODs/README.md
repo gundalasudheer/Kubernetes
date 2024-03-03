@@ -32,7 +32,7 @@ Kubernetes Objects:
  
         apiVersion :-
         	The Kubernetes API version for the objects 
-             - Pod: v11
+             - Pod: v1
              - Service: v1
              - Deployment: apps/v1
              - ReplicaSet: apps/v1

@@ -6,3 +6,5 @@ Here we need to specify the required resources and set the limit required on the
 1Gi (GibiByte) = 1073741824 bytes
 1Mi (MebiByte) = 1048576 bytes
 1Ki (Kibibyte) = 1024 bytes
+
+we can create the limit ranges and resources quotes at namespace level to restrict the usage of resources.
